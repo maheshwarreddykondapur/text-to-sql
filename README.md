@@ -41,6 +41,7 @@ Before setting up or running the project, ensure you have the following installe
 - **Streamlit** (for the web application interface)
 - Familiarity with virtual environments (using `venv` or similar)
 - Basic understanding of SQL and environment variable configuration
+- OPENAI API Key
 
 ---
 
@@ -125,6 +126,7 @@ This end-to-end workflow simplifies data querying and analysis for both technica
 ## Further Exploration
 
 - Handle multiple questions in a single turn.
+- Generating visualizations along with text responses.
 - Creating detailed error handling and logging for SQL execution.
 - Adding detailed definitons to colums in the database schema.
 - Extensive testing and Bugfixes.
