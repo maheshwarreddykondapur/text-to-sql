@@ -80,9 +80,6 @@ def main():
                 "chat_history": st.session_state.messages[:-1]
             })
             
-                # ask the model
-                # response = "select * from claims_table;\nselect top 1 * from claims_table"#model.ask(st.session_state.messages[-1]["content"])
-
                 # update the last message
                 st.session_state.last_message = response
             logger.info(response)
@@ -98,29 +95,6 @@ def main():
             # Add response to message history
             st.session_state.messages.append(message)
         
-        
-        
-        # # Render (or re-render) the shared chat.
-        # chat_placeholder.markdown(render_global_chat(), unsafe_allow_html=True)
-
-        # # Create a form for the user input.
-        # with st.form("chat_form", clear_on_submit=True):
-        #     user_message = st.text_input("Enter your question:")
-        #     submit = st.form_submit_button("Send")
-        #     if submit and user_message:
-        #         # Add the user's message.
-        #         add_message_global("user", user_message)
-
-        #         # Show a loader/spinner while generating the bot's response.
-        #         with st.spinner("Bot is thinking..."):
-        #             # Generate and add the bot's response.
-        #             response = generate_response(user_message)
-
-        #         add_message_global("bot", response)
-        #         # Update the chat window.
-        #         chat_placeholder.markdown(render_global_chat(), unsafe_allow_html=True)
-        # if st.button("Refresh Chat"):
-        #     chat_placeholder.markdown(render_global_chat(), unsafe_allow_html=True)
     elif selected_function == "Query Executor":
 
         st.write(
@@ -138,25 +112,6 @@ def main():
                     st.dataframe(df)  # displays an interactive table
                 else:
                     st.error(data)
-
-
-        # # Create a form for the user input.
-        # with st.form("sql_form"):
-            
-            # user_message = st.text_input("Enter your SQL Query:")
-            # submit = st.form_submit_button("Run Query")
-            # if submit and user_message:
-
-            #     # Show a loader/spinner while generating the bot's response.
-            #     with st.spinner("Your query is running..."):
-            #         # Generate and add the bot's response.
-            #         columns, data = execute_query(user_message)
-
-            #         if columns:
-            #             df = pd.DataFrame(data, columns=columns)
-            #             st.dataframe(df)  # displays an interactive table
-            #         else:
-            #             st.error(data)
 
 
 if __name__ == "__main__":
