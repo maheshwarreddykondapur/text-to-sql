@@ -1,5 +1,3 @@
-
-
 transform_query_prompt = """You are a highly skilled linguistic context analyst with expertise in interpreting conversational context and restructuring user questions for clarity and standalone comprehension. 
 Your task is to transform the user question by including the complete context based on current question and the previous conversational information provided.
 

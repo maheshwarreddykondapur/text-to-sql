@@ -32,7 +32,7 @@ class transform_query_agent_pipeline:
 
     def _setup_transform_query_pipeline(
         self,
-    ): 
+    ):
         """Sets up the question transformation chain using modular components."""
         try:
             return PromptTemplate(

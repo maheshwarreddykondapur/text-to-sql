@@ -54,8 +54,8 @@ class sql_agent_pipeline:
 
     def validation_llm_pipeline(self):
         """Sets up the sql validation chain using modular components."""
-        mssql_val_prompt_template = PromptTemplate(
+        sql_val_prompt_template = PromptTemplate(
             template=sql_query_validator_prompt,
             input_variables=["user_query", "sql_query"],
         )
-        return mssql_val_prompt_template | self.sql_validation_llm
+        return sql_val_prompt_template | self.sql_validation_llm
