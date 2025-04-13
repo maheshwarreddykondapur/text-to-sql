@@ -135,6 +135,6 @@ This end-to-end workflow simplifies data querying and analysis for both technica
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the Apache 2.0 License. See the [LICENSE](LICENSE) file for more details.
 
 
