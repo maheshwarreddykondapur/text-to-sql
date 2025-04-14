@@ -113,12 +113,14 @@ def main():
                     chatbot_message_response = st.chat_message("assistant")
                     if response.get("message", None):
                         chatbot_message_response.markdown(response.get("message"))
+                    
+                    if response.get("chart", None):
+                        chatbot_message_response.plotly_chart(response.get("chart"))
+
                     if response.get("sql_query", None):
                         chatbot_message_response.code(
                             response.get("sql_query"), language="sql", line_numbers=True
                         )
-                    if response.get("chart", None):
-                        chatbot_message_response.plotly_chart(response.get("chart"))
 
                     message = {
                         "role": "assistant",
