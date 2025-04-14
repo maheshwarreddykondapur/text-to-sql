@@ -10,7 +10,7 @@ class sql_agent_pipeline:
     def __init__(self, **kwargs) -> None:
 
         self.llm_model = ChatOpenAI(
-            model=os.getenv("OPENAI_MODEL"), api_key=os.getenv("OPENAI_KEY")
+            model=os.getenv("OPENAI_MODEL"), api_key=os.getenv("OPENAI_KEY"), temperature=None
         )
 
         self.sql_generation_llm, self.sql_validation_llm = (

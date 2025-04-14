@@ -14,7 +14,7 @@ class response_generation_agent_pipeline:
     def __init__(self) -> None:
 
         self.llm_model = ChatOpenAI(
-            model=os.getenv("OPENAI_MODEL"), api_key=os.getenv("OPENAI_KEY")
+            model=os.getenv("OPENAI_MODEL"), api_key=os.getenv("OPENAI_KEY"), temperature=0.7
         )
 
         self.response_generation_pipeline = self._setup_pipeline_structure()

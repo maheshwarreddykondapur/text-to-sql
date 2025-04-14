@@ -63,7 +63,6 @@ def main():
     if selected_function == "Bot Interface":
 
         st.button("Start New", on_click=clear_messages)
-
         # Initialize the chat messages history
         if not st.session_state.get("messages", []):
             st.session_state.messages = [
@@ -109,6 +108,7 @@ def main():
                         }
                     )
 
+                    logger.info(response)
                     # Print the response as a new message from the assistant
                     chatbot_message_response = st.chat_message("assistant")
                     if response.get("message", None):
@@ -117,6 +117,8 @@ def main():
                         chatbot_message_response.code(
                             response.get("sql_query"), language="sql", line_numbers=True
                         )
+                    if response.get("chart", None):
+                        chatbot_message_response.plotly_chart(response.get("chart"))
 
                     message = {
                         "role": "assistant",

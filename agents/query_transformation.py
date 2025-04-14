@@ -10,7 +10,7 @@ class transform_query_agent_pipeline:
     def __init__(self) -> None:
 
         self.llm_model = ChatOpenAI(
-            model=os.getenv("OPENAI_MODEL"), api_key=os.getenv("OPENAI_KEY")
+            model=os.getenv("OPENAI_MODEL"), api_key=os.getenv("OPENAI_KEY"), temperature=0.6
         )
 
         self.transform_query_pipeline = self._setup_transform_query_pipeline()

@@ -1,10 +1,12 @@
 from langgraph.graph import StateGraph, END, START
-from typing import Any, LiteralString, List, TypedDict
+from typing import Any, TypedDict
 from langgraph.graph.state import CompiledStateGraph
 import logging
+import pandas as pd
 
 from agents import agent_manager
 from database.helper import execute_query
+from utils.common import generate_plotly_chart
 
 agent_runner = agent_manager()
 logger = logging.getLogger(__name__)
@@ -18,6 +20,7 @@ class conversation_flow_states(TypedDict):
     message: str
     process_successful: bool
     is_relevant_question: bool
+    chart: Any
 
 
 def transform_question(state) -> dict[str, str]:
@@ -140,22 +143,42 @@ def bot_response_generator(state) -> dict[str, str]:
     try:
         if state["is_relevant_question"] and state["process_successful"]:
 
-            sql_output = execute_query(query=state["sql_query"])
+            columns, rows = execute_query(query=state["sql_query"])
+
+            if not columns:
+                return {
+                    "sql_query": state["sql_query"],
+                    "message": "No data found in the database",
+                }
+
+            df = pd.DataFrame(rows, columns=columns)
 
             response_generation_pipe = agent_runner.get_llm_agent(
                 agent_name="response_generator"
             )
             response_result = response_generation_pipe.execute_agent(
-                sql_output=sql_output, user_question=state["user_question"]
+                sql_output=df.to_markdown(index=False),
+                user_question=state["user_question"],
             ).__dict__
+
+            # Generating plotly chart for the data
+            if response_result.get("visualization_info", None):
+                chart = generate_plotly_chart(
+                    response_result.get("visualization_info"), data_frame=df
+                )
+            else:
+                chart = None
+
+            logger.info(response_result)
 
             return {
                 "message": response_result["response_text"],
                 "sql_query": state["sql_query"],
+                "chart": chart,
             }
 
         else:
-            return {"message": state["message"], "sql_query": None}
+            return {"message": state["message"], "sql_query": None, "chart": None}
     except Exception as e:
 
         logger.error("Failed to generate the final response", exc_info=e)
